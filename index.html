@@ -1,37 +1,371 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Home Screen Blueprint – Support</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home Screen Blueprint — Organize Your Home Screen</title>
+  <meta name="description" content="A simple, step-by-step blueprint to organize your iPhone home screen in about 10 minutes." />
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      max-width: 600px;
-      margin: 80px auto;
+    :root{
+      --bg:#fbfbf9;
+      --card:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+      --accent:#2f6f57;
+      --accent2:#1f8a6a;
+      --shadow: 0 10px 30px rgba(0,0,0,.06);
+      --radius: 18px;
+      --max: 920px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background: radial-gradient(1200px 600px at 70% -10%, rgba(47,111,87,.10), transparent 60%),
+                  radial-gradient(900px 500px at 10% 0%, rgba(31,138,106,.10), transparent 55%),
+                  var(--bg);
+      line-height:1.55;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    header{
+      padding: 56px 20px 20px;
+    }
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .hero{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      align-items: start;
+    }
+    @media (max-width: 860px){
+      .hero{grid-template-columns: 1fr}
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 12px;
+      border:1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,.7);
+      font-size: 13px;
+      color: var(--muted);
+      width: fit-content;
+    }
+    h1{
+      margin: 14px 0 10px;
+      font-size: clamp(28px, 4vw, 44px);
+      letter-spacing: -0.02em;
+      line-height:1.15;
+    }
+    .lead{
+      margin: 0 0 18px;
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+    .ctaRow{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border:1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 1px 0 rgba(0,0,0,.02);
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(47,111,87,.22);
+    }
+    .btn small{font-weight:500; opacity:.85}
+    .card{
+      background: rgba(255,255,255,.92);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .mini{
+      font-size: 13px;
+      color: var(--muted);
+    }
+    main{padding: 10px 20px 64px;}
+    section{margin-top: 18px;}
+    h2{
+      margin: 0 0 10px;
+      font-size: 20px;
+      letter-spacing:-0.01em;
+    }
+    h3{
+      margin: 14px 0 6px;
+      font-size: 16px;
+      letter-spacing:-0.01em;
+    }
+    p{margin: 8px 0;}
+    ul{margin: 10px 0 0; padding-left: 18px; color: var(--muted);}
+    li{margin: 6px 0;}
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 860px){
+      .grid2{grid-template-columns:1fr}
+    }
+    .note{
+      border-left: 4px solid rgba(47,111,87,.5);
+      padding: 10px 12px;
+      background: rgba(47,111,87,.06);
+      border-radius: 10px;
+      color: #0f172a;
+      margin-top: 10px;
+    }
+    .kpi{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (max-width: 860px){
+      .kpi{grid-template-columns:1fr}
+    }
+    .kpi .box{
+      border:1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      background: rgba(255,255,255,.85);
+    }
+    .box b{display:block; font-size: 14px;}
+    .box span{display:block; color: var(--muted); font-size: 13px; margin-top: 4px;}
+    footer{
       padding: 20px;
-      line-height: 1.6;
-      color: #111;
+      border-top: 1px solid var(--border);
+      background: rgba(255,255,255,.65);
+      color: var(--muted);
+      font-size: 13px;
     }
-    h1 {
-      font-size: 28px;
-    }
-    a {
-      color: #2f6f4f;
+    code{
+      background: rgba(17,24,39,.04);
+      border: 1px solid rgba(17,24,39,.06);
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-size: 12px;
     }
   </style>
 </head>
+
 <body>
+  <header>
+    <div class="wrap hero">
+      <div>
+        <div class="badge">Home Screen Blueprint • iOS</div>
+        <h1>Organize Your Home Screen —<br/>with a simple blueprint.</h1>
+        <p class="lead">
+          A clean home screen isn’t about aesthetics. It’s about reducing friction—so the apps you need
+          are easy to find, and everything else stays out of the way.
+        </p>
+        <div class="ctaRow">
+          <a class="btn primary" href="#how">How it works</a>
+          <a class="btn" href="#privacy">Privacy</a>
+          <a class="btn" href="#support">Support</a>
+        </div>
 
-<h1>Home Screen Blueprint</h1>
+        <div class="kpi">
+          <div class="box">
+            <b>~10 minutes</b>
+            <span>Quick guided session</span>
+          </div>
+          <div class="box">
+            <b>3 Plans</b>
+            <span>Function / Context / Frequency</span>
+          </div>
+          <div class="box">
+            <b>No login</b>
+            <span>Simple and privacy-first</span>
+          </div>
+        </div>
+      </div>
 
-<p>Organize your iPhone home screen with a simple step-by-step guide.</p>
+      <div class="card">
+        <h2 style="margin-bottom:6px;">What this app does</h2>
+        <ul>
+          <li><b>Choose a structure</b> that matches how you think.</li>
+          <li><b>See a folder blueprint</b> (recommended folder set + naming direction).</li>
+          <li><b>Follow a step-by-step guide</b> to reorganize manually.</li>
+          <li><b>Stay consistent</b> with rules that prevent mess from coming back.</li>
+        </ul>
+        <div class="note">
+          <b>Important:</b> Home Screen Blueprint does <b>not</b> move your apps automatically.
+          iOS limitations require manual changes. This app gives you the plan and checklist so you can do it fast.
+        </div>
+      </div>
+    </div>
+  </header>
 
-<h2>Support</h2>
-<p>If you have questions or feedback, contact:</p>
-<p><a href="mailto:1818024@qq.com">contact us</a></p>
+  <main>
+    <div class="wrap">
+      <section class="card" id="why">
+        <h2>Why Home Screen Blueprint works</h2>
+        <p class="mini">
+          Most people fail because they start randomly—renaming folders, moving icons, then giving up.
+          This app gives you a structure first, so your home screen stays clean even as your usage changes.
+        </p>
+        <h3>You’ll avoid common mistakes like:</h3>
+        <ul>
+          <li>Mixing “daily” apps with “rarely used” apps</li>
+          <li>Creating too many pages too early</li>
+          <li>Over-organizing and making it harder to find things</li>
+        </ul>
+      </section>
 
-<p>This app does not collect personal data.</p>
+      <section class="card" id="plans">
+        <h2>Three organization styles (Plans)</h2>
 
+        <div class="grid2">
+          <div class="card" style="box-shadow:none;">
+            <h3>1) Function</h3>
+            <p class="mini">Group apps by what they do.</p>
+            <p class="mini"><b>Example folders:</b> Work / Life / Entertainment / Tools</p>
+            <p class="mini"><b>Best for:</b> people who search apps by purpose.</p>
+          </div>
+
+          <div class="card" style="box-shadow:none;">
+            <h3>2) Context</h3>
+            <p class="mini">Group apps by when/where you use them.</p>
+            <p class="mini"><b>Example folders:</b> Morning / Day / Night / On the Go</p>
+            <p class="mini"><b>Best for:</b> people whose app usage changes by time or situation.</p>
+          </div>
+
+          <div class="card" style="box-shadow:none;">
+            <h3>3) Frequency</h3>
+            <p class="mini">Group apps by how often you use them.</p>
+            <p class="mini"><b>Example folders:</b> Daily / Sometimes / Rarely</p>
+            <p class="mini"><b>Best for:</b> people who want a cleaner first page fast.</p>
+          </div>
+
+          <div class="card" style="box-shadow:none;">
+            <h3>What you get</h3>
+            <ul>
+              <li>Recommended folder blueprint</li>
+              <li>Clear naming guidance</li>
+              <li>Step-by-step checklist</li>
+              <li>Rules to maintain long-term</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="how">
+        <h2>How it works (about 10 minutes)</h2>
+        <ol style="margin:10px 0 0; padding-left: 18px; color: var(--muted);">
+          <li style="margin:6px 0;">Pick a plan (Function / Context / Frequency)</li>
+          <li style="margin:6px 0;">Review the blueprint (folder set + naming guidance)</li>
+          <li style="margin:6px 0;">Follow the guide steps (move low-frequency apps, build folders, tidy pages)</li>
+          <li style="margin:6px 0;">Finish with a stable home screen you can maintain</li>
+        </ol>
+        <p class="mini" style="margin-top:10px;">
+          Tip: Don’t try to perfect everything on day one. Start with a stable structure, then adjust gradually.
+        </p>
+      </section>
+
+      <section class="card" id="faq">
+        <h2>FAQ</h2>
+
+        <h3>Does the app reorganize my home screen automatically?</h3>
+        <p class="mini">
+          No. iOS doesn’t allow apps to fully rearrange your icons automatically.
+          Home Screen Blueprint provides a plan and checklist so you can do it quickly and correctly.
+        </p>
+
+        <h3>Do I need to log in?</h3>
+        <p class="mini">No login required.</p>
+
+        <h3>Is there any data collection?</h3>
+        <p class="mini">The app is designed to work without collecting personal data.</p>
+      </section>
+
+      <section class="card" id="privacy">
+        <h2>Privacy</h2>
+        <p class="mini">
+          Home Screen Blueprint is built with a privacy-first approach:
+        </p>
+        <ul>
+          <li>No account required</li>
+          <li>No selling of personal data</li>
+          <li>No need to track your identity to work</li>
+        </ul>
+        <p class="mini" style="margin-top:10px;">
+          If we ever add analytics in a future version, it will be optional and clearly disclosed.
+        </p>
+      </section>
+
+      <section class="card" id="support">
+        <h2>Support</h2>
+        <p class="mini">
+          If you need help or want to request a feature, email:
+          <a href="mailto:1818024@qq.com">1818024@qq.com</a>
+        </p>
+        <p class="mini">
+          When reporting an issue, please include:
+        </p>
+        <ul>
+          <li>iPhone model</li>
+          <li>iOS version</li>
+          <li>What you tried / what happened</li>
+          <li>A screenshot (optional)</li>
+        </ul>
+      </section>
+
+      <section class="card" id="changelog">
+        <h2>Changelog</h2>
+        <h3>Version 1.0.0</h3>
+        <ul>
+          <li>Three plan styles: Function / Context / Frequency</li>
+          <li>Blueprint + guided steps</li>
+          <li>Clean, minimal UI for fast setup</li>
+        </ul>
+      </section>
+
+      <section class="card" id="credits">
+        <h2>Credits</h2>
+        <p class="mini">
+          Made by an indie developer who loves clean systems and frictionless daily workflows.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>© <span id="y"></span> Home Screen Blueprint</div>
+      <div class="mini" style="margin-top:6px;">
+        Contact: <a href="mailto:1818024@qq.com">1818024@qq.com</a> ·
+        <span>Marketing URL / Support URL can point to this page.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
